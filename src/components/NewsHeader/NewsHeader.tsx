@@ -2,6 +2,7 @@ import React from 'react';
 import * as Styled from './NewsHeader.styled'
 
 type NewsHeaderProps = {
+    id: number
     title: string
     rating: number
     author: string

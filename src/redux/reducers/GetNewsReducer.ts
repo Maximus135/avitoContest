@@ -1,7 +1,7 @@
 import { GET_NEWS , WAITING_NEWS} from '../actions/GetNewsActions';
 import {NewsType} from '../../types/types';
 
-let initialState = {
+const initialState = {
     news: [] as Array<NewsType>,
     isFetching: false,
 }
@@ -20,7 +20,7 @@ const GetNewsReducer = (state = initialState, action: any)=>{
                 isFetching: true,
             }
         default:
-            return{...state}
+            return state
     }
 }
 

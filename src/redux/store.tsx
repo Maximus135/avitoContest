@@ -1,12 +1,14 @@
 import {combineReducers, createStore, applyMiddleware, Action} from "redux";
-import GetNewsReducer from './reducers/GetUsersReducer';
+import GetNewsReducer from './reducers/GetNewsReducer';
+import GetNewsItemReducer from './reducers/GetNewsItemReducer';
 import thunk, {ThunkAction} from 'redux-thunk';
 
 const rootReducer = combineReducers({
-    News: GetNewsReducer
+    News: GetNewsReducer,
+    NewsItem: GetNewsItemReducer
 })
 
-type RootReducerType = typeof rootReducer; // (globalstate: AppStateType) => AppStateType
+type RootReducerType = typeof rootReducer;
 
 
 export type AppStateType = ReturnType<RootReducerType>

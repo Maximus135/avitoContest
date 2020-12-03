@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { ReactComponent as Logo } from '../../images/hacker.svg';
+import { Link } from 'react-router-dom';
 
 export const StyledMainPage = styled.div`
     display: flex;
@@ -25,5 +26,10 @@ export const StyledWrapper = styled.div`
     flex-direction: row;
     justify-content: center;
     align-items: center;
+`
+
+export const StyledLink = styled(Link)`
+    text-decoration: none;
+    color:black !important;
 `
 
