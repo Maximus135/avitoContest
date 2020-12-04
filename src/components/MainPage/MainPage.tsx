@@ -6,6 +6,7 @@ import {getNewsThunk} from '../../redux/thunks/getNewsThunk';
 import {AppStateType} from '../../redux/store';
 import Loader from '../Loader/Loader';
 import { NewsType } from '../../types/types';
+import SubLoader from '../SubLoader/SubLoader';
 
 
 
@@ -18,18 +19,19 @@ const MainPage = () => {
     const [newsArray, setNewsArray] = useState([]);
 
     const getMoreNews = () =>{
-        dispatch(getNewsThunk);
+        dispatch(getNewsThunk());
     }
 
     useEffect(() => {
         if(!state.news.length){
-            dispatch(getNewsThunk);
+            dispatch(getNewsThunk());
         }
+        // setInterval(()=>dispatch(getNewsThunk(true)),60000);
     },[state.news]);
 
     useEffect(() => {
-        let sortedNews = state.news.sort((first:NewsType, second:NewsType)=>(second.date-first.date));
-        setNewsArray(sortedNews.map((element:NewsType)=>{
+
+        setNewsArray(state.news.map((element:NewsType)=>{
             let normalDate = new Date(0);
             normalDate.setUTCSeconds(element.date);
             return(
@@ -52,11 +54,13 @@ const MainPage = () => {
     return( 
         <Styled.StyledMainPage>
             <Styled.StyledWrapper>
-                <Styled.StyledTitel onClick={getMoreNews}>Hacker News</Styled.StyledTitel>
+                <Styled.StyledTitel>Hacker News</Styled.StyledTitel>
                 <Styled.StyledLogo />
         </Styled.StyledWrapper>
+        <Styled.StyledRefresh onClick={()=>dispatch(getNewsThunk(true))}/>
         {newsArray.map((element)=>(element))}
-        {(state.isFetching && state.news.length) && <span>подргужаююю...</span>}
+        {(!state.isFetching && state.news.length && state.news.length < 100) && <Styled.StyledDownArrow onClick={getMoreNews} />}
+        {(state.isFetching && state.news.length) && <SubLoader />}
         </Styled.StyledMainPage>)
 
 }

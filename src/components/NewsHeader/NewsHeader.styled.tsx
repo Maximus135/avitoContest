@@ -23,8 +23,7 @@ export const StyledTitle = styled.div`
     font-size: 15px;
     overflow: hidden;
     text-overflow: ellipsis;
-    text-align: center; // странно
-    justify-content: center; // фиксить
+    justify-content: center;
 `
 
 export const StyledInfo = styled.div`

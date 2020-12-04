@@ -16,3 +16,11 @@ export type NewsItemType = {
     commentsCounter: number
     subCommentsId: Array<number>
 }
+
+export type RootCommentType ={
+    id: number
+    author: string
+    text: string
+    kids: Array<number>
+    deleted: boolean
+}

@@ -5,11 +5,18 @@ import {getNewsAction, waitingNewsAction} from '../actions/GetNewsActions';
 const news: Array<NewsType> = [];
 let latestNewsId: Array<number> = [];
 let savedId = 0;
-export const getNewsThunk = async (dispatch: any) =>{
+export const getNewsThunk = (fullUpdate: boolean = false) => (async (dispatch: any) =>{
     dispatch(waitingNewsAction());
-    latestNewsId = await GetLatestNewsId().then(responce=>{
-        return responce;
-    })
+    if(fullUpdate){
+        savedId = 0;
+        latestNewsId.length = 0;
+        news.length = 0;
+    }
+    if(savedId === 0){
+        latestNewsId = await GetLatestNewsId().then(responce=>{
+            return responce;
+        })
+    }
     for(let i = savedId; i < savedId+10; i++){
         const newsItem = await GetNews(latestNewsId[i]).then(responce=>{
             return {
@@ -25,4 +32,4 @@ export const getNewsThunk = async (dispatch: any) =>{
     }
     savedId += 10;
     dispatch(getNewsAction(news))
-}
+});

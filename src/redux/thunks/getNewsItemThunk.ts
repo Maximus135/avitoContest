@@ -16,7 +16,6 @@ export const getNewsItemThunk = (id: number) => (async (dispatch: any) =>{
     };
 
     newsItem = await GetNews(newsId).then(responce=>{
-        console.log(responce.kids);
         return {
             id: responce.id,
             link: responce.url,

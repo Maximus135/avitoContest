@@ -7,7 +7,6 @@ const initialState = {
 }
 
 const GetNewsItemReducer = (state = initialState, action: any)=>{
-    console.log(state, action);
     switch(action.type){
         case GET_ITEM_NEWS:
             return{
