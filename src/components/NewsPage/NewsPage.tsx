@@ -19,7 +19,6 @@ const NewsPage = (props:any) =>{
         window.open(link,'newLink');
     }
 
-    // console.log(state);
     useEffect(() => {
         const newsId = props.match.params.newsId;
         dispatch(getNewsItemThunk(newsId));
@@ -31,9 +30,11 @@ const NewsPage = (props:any) =>{
         }
     },[state.newsItem]);
 
+
     if(state.isFetching){
         return <Loader />
     }
+    
 return (
     <Styled.StyledNewsPage>
         <Styled.StyledHeader>

@@ -1,15 +1,22 @@
 import { GetComment } from '../../API/getCommnet';
-import {getCommentsAction, waitingCommentsAction, getRootCommentsAction, waitingRootCommentsAction} from '../actions/GetCommentsAction';
-import { RootCommentType } from './../../types/types';
+import {getRootCommentsAction, waitingRootCommentsAction} from '../actions/GetRootCommentsAction';
+import { RootCommentType } from '../../types/types';
 
-export const getCommentsThunk = () =>{
 
-};
+const rootComments: Array<RootCommentType> = [];
+let latestNewsId: Array<number> = [];
+let savedId = 0;
 
-export const getRootCommentsThunk  = (id: Array<number>) => (async (dispatch: any) =>{
+
+export const getRootCommentsThunk  = (id: Array<number>, fullUpdate: boolean = false ) => (async (dispatch: any) =>{
     dispatch(waitingRootCommentsAction());
 
-    const rootComments:Array<RootCommentType> = [];
+    if(fullUpdate){
+        savedId = 0;
+        latestNewsId.length = 0;
+        rootComments.length = 0;
+    }
+
     let rootComment: RootCommentType = {
         id: 0,
         author: '',
@@ -17,8 +24,13 @@ export const getRootCommentsThunk  = (id: Array<number>) => (async (dispatch: an
         kids: [],
         deleted: false
     };
+    
+    console.log(latestNewsId);
 
-    for(let i = 0; i < id.length; i++){
+    for(let i = savedId; i < savedId+5; i++){
+        if(i === id.length){
+            break;
+        }
         rootComment = await GetComment(id[i]).then(responce=>{
             return {
                 id: responce.id,
@@ -32,6 +44,6 @@ export const getRootCommentsThunk  = (id: Array<number>) => (async (dispatch: an
             rootComments.push(rootComment);
         }
     }
-
+    savedId += 5;
     dispatch(getRootCommentsAction(rootComments));
 })

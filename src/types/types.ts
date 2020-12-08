@@ -24,3 +24,12 @@ export type RootCommentType ={
     kids: Array<number>
     deleted: boolean
 }
+
+export type SubCommentType ={
+    level: number
+    id: number
+    author: string
+    text: string
+    kids: Array<number>
+    deleted: boolean
+}

@@ -30,7 +30,6 @@ const MainPage = () => {
     },[state.news]);
 
     useEffect(() => {
-
         setNewsArray(state.news.map((element:NewsType)=>{
             let normalDate = new Date(0);
             normalDate.setUTCSeconds(element.date);

@@ -2,25 +2,50 @@ import React, {useEffect, useState} from 'react';
 import * as Styled from './Comments.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import {AppStateType} from '../../redux/store';
-import {getCommentsThunk, getRootCommentsThunk} from '../../redux/thunks/getCommentsThunk';
+import {getRootCommentsThunk} from '../../redux/thunks/getRootCommentsThunk';
+import CommentItem from '../CommentItem/CommentItem';
+import { RootCommentType } from '../../types/types';
+import SubLoader from '../SubLoader/SubLoader';
 
 type CommentsType ={
     commentsId:Array<number>
 }
 
 const Comments = ({commentsId}:CommentsType)=>{
-    const state = useSelector((state:AppStateType)=>state);
+    const state = useSelector((state:AppStateType)=>state.RootComments);
     const dispatch = useDispatch();
+    const [commentsArray, setcommentsArray] = useState([]);
+    // const [commentsIdLegnth]
+
+    const getMoreComments = () =>{
+        dispatch(getRootCommentsThunk(commentsId));
+    }
+
 
     useEffect(() => {
-        if(!state.RootComments.comments.length){
+        if(commentsId.length && !state.comments.length){
             dispatch(getRootCommentsThunk(commentsId));
         }
-        console.log(state);
-    },[state.RootComments.comments]);
+        setcommentsArray(state.comments.map((element:RootCommentType)=><CommentItem id={element.id} author={element.author} text={element.text} kids={element.kids} />));
+    },[commentsId, state.comments, setcommentsArray]);
 
+    useEffect(() => {
+        setcommentsArray(state.comments.map((element:RootCommentType)=><CommentItem id={element.id} author={element.author} text={element.text} kids={element.kids} />));
+    },[commentsId, state]);
 
-return<div>sad</div>
+    console.log(state);
+
+    if(state.isFetching && !state.comments.length){
+        return <SubLoader />
+    }
+
+return(
+    <Styled.StyledComments>
+        {commentsArray.map((element)=>element)}
+        {(state.isFetching && state.comments.length) && <SubLoader />}
+        {(!state.isFetching && state.comments.length && state.comments.length) && <Styled.StyledDownArrow onClick={getMoreComments} />}
+    </Styled.StyledComments>)
+
 
 }
 

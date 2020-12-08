@@ -1,7 +1,7 @@
 import {combineReducers, createStore, applyMiddleware, Action} from "redux";
 import GetNewsReducer from './reducers/GetNewsReducer';
 import GetNewsItemReducer from './reducers/GetNewsItemReducer';
-import GetRootCommentsReducer from './reducers/GetrootCommentsReducer';
+import GetRootCommentsReducer from './reducers/GetRootCommentsReducer';
 import thunk, {ThunkAction} from 'redux-thunk';
 
 const rootReducer = combineReducers({
