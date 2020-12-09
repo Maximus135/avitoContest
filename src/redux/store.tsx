@@ -2,12 +2,14 @@ import {combineReducers, createStore, applyMiddleware, Action} from "redux";
 import GetNewsReducer from './reducers/GetNewsReducer';
 import GetNewsItemReducer from './reducers/GetNewsItemReducer';
 import GetRootCommentsReducer from './reducers/GetRootCommentsReducer';
+import GetSubCommentReducer from "./reducers/GetSubCommnetsReducer";
 import thunk, {ThunkAction} from 'redux-thunk';
 
 const rootReducer = combineReducers({
     News: GetNewsReducer,
     NewsItem: GetNewsItemReducer,
-    RootComments: GetRootCommentsReducer
+    RootComments: GetRootCommentsReducer,
+    SubCommnets: GetSubCommentReducer
 })
 
 type RootReducerType = typeof rootReducer;

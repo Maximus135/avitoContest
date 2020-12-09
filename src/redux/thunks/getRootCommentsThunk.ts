@@ -1,5 +1,5 @@
 import { GetComment } from '../../API/getCommnet';
-import {getRootCommentsAction, waitingRootCommentsAction} from '../actions/GetRootCommentsAction';
+import {getRootCommentsAction, waitingRootCommentsAction, setRootCommentEnded} from '../actions/GetRootCommentsAction';
 import { RootCommentType } from '../../types/types';
 
 
@@ -28,9 +28,6 @@ export const getRootCommentsThunk  = (id: Array<number>, fullUpdate: boolean = f
     console.log(latestNewsId);
 
     for(let i = savedId; i < savedId+5; i++){
-        if(i === id.length){
-            break;
-        }
         rootComment = await GetComment(id[i]).then(responce=>{
             return {
                 id: responce.id,
@@ -39,7 +36,16 @@ export const getRootCommentsThunk  = (id: Array<number>, fullUpdate: boolean = f
                 kids: responce.kids ? responce.kids: 0,
                 deleted: responce.deleted ? true : false
             }
-        })
+        }).catch((error=>{
+            dispatch(setRootCommentEnded());
+            return{
+                id: 0,
+                author: '',
+                text: '',
+                kids: [],
+                deleted: true
+            }
+        }));
         if(!rootComment.deleted){
             rootComments.push(rootComment);
         }

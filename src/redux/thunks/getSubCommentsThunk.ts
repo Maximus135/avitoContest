@@ -3,13 +3,10 @@ import {getSubCommentsAction, waitingSubCommentsAction} from '../actions/GetSubC
 import { SubCommentType } from '../../types/types';
 
 
+const SubCommnets:Map<number,Array<SubCommentType>> = new Map();
 
-export const getSubCommentsThunk  = (kids: Array<number>) =>{
-    // dispatch(waitingSubCommentsAction());
-
-    let subComments: Array<SubCommentType> = [];
-
-    let current = 0;
+export const getSubCommentsThunk  = (kids: Array<number>, rootCommentId:number) => (async (dispatch: any) => {
+    dispatch(waitingSubCommentsAction());
 
     let subComment: SubCommentType = {
         level: 0,
@@ -40,17 +37,14 @@ export const getSubCommentsThunk  = (kids: Array<number>) =>{
                 await DeepSearch(subComment.kids,Info,levelCurrent);
             }
             else{
-                if(current > 0){
-                    levelCurrent--;
-                }
                 Info.push(subComment);
             }
         }
         return Info;
     }
+
     DeepSearch().then(responce=>{
-        console.log(responce);
+        SubCommnets.set(rootCommentId, responce);
+        dispatch(getSubCommentsAction(SubCommnets));
     });
-    // console.log(subComment);
-    // return subComments;
-}
+});

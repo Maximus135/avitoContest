@@ -1,6 +1,12 @@
 import styled from 'styled-components';
 import { ReactComponent as User } from '../../images/user.svg';
 import { ReactComponent as DownArrow } from '../../images/downArrow.svg';
+import { ReactComponent as UpArrow } from '../../images/upArrow.svg';
+
+export const StyledMainWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+` 
 
 export const StyledWrapper = styled.div`
     display: flex;
@@ -52,6 +58,14 @@ export const StyledMessage = styled.span`
 `
 
 export const StyledDownArrow = styled(DownArrow)`
+    width: 20px;
+    height: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
+`
+
+export const StyledUpArrow = styled(UpArrow)`
     width: 20px;
     height: 20px;
     margin-left: auto;

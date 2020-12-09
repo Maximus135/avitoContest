@@ -1,6 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import { getSubCommentsThunk } from '../../redux/thunks/getSubCommentsThunk';
 import * as Styled from './CommentItem.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import {AppStateType} from '../../redux/store';
+import SubLoader from '../SubLoader/SubLoader';
+import SubCommentItem from '../SubCommentItem/SubCommnetItem';
 
 type CommentItemPropsType ={
     id: number,
@@ -11,13 +15,27 @@ type CommentItemPropsType ={
 
 const CommentItem = ({id, author, text, kids}: CommentItemPropsType) =>{
 
-    const getSubComments = (kids:Array<number>) =>{
-        console.log(kids);
-        getSubCommentsThunk(kids);
-        // console.log(comments);
+    const dispatch = useDispatch();
+    const state = useSelector((state:AppStateType)=>state.SubCommnets);
+    const [subComments, setSubCommnets] = useState([]);
+    const [subCommentsModal, setSubCommentsModal] = useState(false);
+
+    useEffect(() => {
+        setSubCommnets(state.subComments.get(id));
+    },[state, id, setSubCommnets, subComments, subCommentsModal, setSubCommentsModal]);
+
+    
+    const getSubComments = (kids:Array<number>=[]) =>{
+        if(!state.subComments.get(id)){
+            dispatch(getSubCommentsThunk(kids,id));
+            setSubCommentsModal(true);
+        }else{
+            setSubCommentsModal(!subCommentsModal);
+        }
     }
 
     return(
+        <Styled.StyledMainWrapper>
         <Styled.StyledWrapper>
             <Styled.UserWrapper>
             <   Styled.StyledUser />
@@ -26,8 +44,17 @@ const CommentItem = ({id, author, text, kids}: CommentItemPropsType) =>{
             <Styled.StyledMessageWrapper>
                 <Styled.StyledMessage>{text}</Styled.StyledMessage>
             </Styled.StyledMessageWrapper>
-            {kids.length > 0 && <Styled.StyledDownArrow onClick={()=>getSubComments(kids)}/>}
+            {!state.isFetching ? 
+            (kids.length ? 
+            (!subCommentsModal ? <Styled.StyledDownArrow onClick={()=>getSubComments(kids)} /> 
+            : <Styled.StyledUpArrow onClick={()=>getSubComments()} />)
+            : <div />) 
+            : <SubLoader />}
         </Styled.StyledWrapper>
+            {subComments && subCommentsModal 
+            ? subComments.map((element:any)=><SubCommentItem level={element.level} />) 
+            : <div/>}
+        </Styled.StyledMainWrapper>
     ) 
 }
 

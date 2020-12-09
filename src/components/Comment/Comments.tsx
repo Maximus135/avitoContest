@@ -13,14 +13,13 @@ type CommentsType ={
 
 const Comments = ({commentsId}:CommentsType)=>{
     const state = useSelector((state:AppStateType)=>state.RootComments);
+    console.log(state);
     const dispatch = useDispatch();
     const [commentsArray, setcommentsArray] = useState([]);
-    // const [commentsIdLegnth]
 
     const getMoreComments = () =>{
         dispatch(getRootCommentsThunk(commentsId));
     }
-
 
     useEffect(() => {
         if(commentsId.length && !state.comments.length){
@@ -33,7 +32,6 @@ const Comments = ({commentsId}:CommentsType)=>{
         setcommentsArray(state.comments.map((element:RootCommentType)=><CommentItem id={element.id} author={element.author} text={element.text} kids={element.kids} />));
     },[commentsId, state]);
 
-    console.log(state);
 
     if(state.isFetching && !state.comments.length){
         return <SubLoader />
@@ -43,10 +41,8 @@ return(
     <Styled.StyledComments>
         {commentsArray.map((element)=>element)}
         {(state.isFetching && state.comments.length) && <SubLoader />}
-        {(!state.isFetching && state.comments.length && state.comments.length) && <Styled.StyledDownArrow onClick={getMoreComments} />}
+        {(!state.isFetching && state.comments.length && !state.isLastComment) && <Styled.StyledDownArrow onClick={getMoreComments} />}
     </Styled.StyledComments>)
-
-
 }
 
 export default Comments;
