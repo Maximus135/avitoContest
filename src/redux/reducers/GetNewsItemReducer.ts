@@ -1,5 +1,5 @@
 import { NewsItemType } from './../../types/types';
-import { GET_ITEM_NEWS, WAITING_ITEM_NEWS } from '../actions/GetNewsItemAction';
+import { GET_ITEM_NEWS, WAITING_ITEM_NEWS, CLEAR_ITEM_NEWS } from '../actions/GetNewsItemAction';
 
 const initialState = {
     newsItem: {} as NewsItemType,
@@ -17,7 +17,12 @@ const GetNewsItemReducer = (state = initialState, action: any) => {
         case WAITING_ITEM_NEWS:
             return {
                 ...state,
-                isFetching: true,
+                isFetching: true
+            }
+        case CLEAR_ITEM_NEWS:
+            return {
+                ...state,
+                newsItem: {}
             }
         default:
             return state

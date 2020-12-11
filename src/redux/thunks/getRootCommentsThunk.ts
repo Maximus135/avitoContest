@@ -8,13 +8,12 @@ let savedId = 0;
 
 
 export const getRootCommentsThunk = (id: Array<number> = [], fullUpdate: boolean = false) => (async (dispatch: any) => {
-
-    dispatch(waitingRootCommentsAction());
-
     if (fullUpdate) {
         savedId = 0;
         rootComments.length = 0;
     } else {
+        dispatch(waitingRootCommentsAction());
+
         let rootComment: RootCommentType = {
             id: 0,
             author: '',

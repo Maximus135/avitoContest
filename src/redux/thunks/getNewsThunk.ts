@@ -27,8 +27,19 @@ export const getNewsThunk = (fullUpdate: boolean = false) => (async (dispatch: a
                 date: responce.time,
                 type: responce.type
             }
+        }).catch((error) => {
+            return {
+                id: 0,
+                title: '',
+                rating: 0,
+                author: '',
+                date: 0,
+                type: ''
+            }
         })
-        news.push(newsItem);
+        if (newsItem.id !== 0) {
+            news.push(newsItem);
+        }
     }
     savedId += 10;
     dispatch(getNewsAction(news))

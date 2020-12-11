@@ -15,11 +15,12 @@ const NewsPage = (props: any) => {
     const check = useSelector((state: AppStateType) => state);
 
     const dispatch = useDispatch();
-    const newsId = props.match.params.newsId;
 
     const [rootCommentsId, setrootCommentsId] = useState([]);
     const [commentsCounter, setCommentsCounter] = useState(0);
     const [date, setDate] = useState('');
+
+    const newsId = props.match.params.newsId;
 
     const fullUpdateNews = () => {
         setrootCommentsId([]);
@@ -36,12 +37,12 @@ const NewsPage = (props: any) => {
 
     console.log(check);
 
+    console.log('newsId', newsId);
+    console.log('root', rootCommentsId);
+
     useEffect(() => {
-        if (!state.newsItem.comments) {
-            dispatch(getNewsItemThunk(newsId));
-        }
-        // setInterval(fullUpdateNews, 60000);
-    }, [dispatch, newsId, state.newsItem.comments]);
+        fullUpdateNews();
+    }, []);
 
 
     useEffect(() => {

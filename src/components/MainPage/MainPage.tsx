@@ -7,7 +7,7 @@ import { AppStateType } from '../../redux/store';
 import Loader from '../Loader/Loader';
 import { NewsType } from '../../types/types';
 import SubLoader from '../SubLoader/SubLoader';
-
+import { clearNewsItemAction } from '../../redux/actions/GetNewsItemAction';
 
 
 
@@ -26,6 +26,7 @@ const MainPage = () => {
         if (!state.news.length) {
             dispatch(getNewsThunk());
         }
+        dispatch(clearNewsItemAction());
         // setInterval(()=>dispatch(getNewsThunk(true)),60000);
     }, [state.news]);
 

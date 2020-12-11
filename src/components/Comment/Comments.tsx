@@ -6,7 +6,7 @@ import { getRootCommentsThunk } from '../../redux/thunks/getRootCommentsThunk';
 import CommentItem from '../CommentItem/CommentItem';
 import { RootCommentType } from '../../types/types';
 import SubLoader from '../SubLoader/SubLoader';
-
+import { clearRootCommentsAction } from '../../redux/actions/GetRootCommentsAction';
 
 type CommentsType = {
     commentsId: Array<number>
@@ -26,6 +26,7 @@ const Comments = ({ commentsId, fullUpdateNews }: CommentsType) => {
         dispatch(getRootCommentsThunk(commentsId));
     }
 
+    // console.log(commentsId);
 
     useEffect(() => {
         if (commentsId.length && !state.comments.length) {
