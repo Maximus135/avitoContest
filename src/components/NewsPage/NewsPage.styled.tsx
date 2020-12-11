@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { ReactComponent as Back } from '../../images/back.svg';
 import { Link } from 'react-router-dom';
-import { ReactComponent as Refresh } from '../../images/refresh.svg';
 import { ReactComponent as LinkIcon } from '../../images/link.svg';
 import { ReactComponent as Date } from '../../images/date.svg';
 import { ReactComponent as User } from '../../images/user.svg';
@@ -34,14 +33,6 @@ export const StyledTitle = styled.h1`
 export const StyledLink = styled(Link)`
     display: flex;
     align-items: center;
-`
-
-export const StyledRefresh = styled(Refresh)`
-    align-self: center;
-    margin-right: 10px;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
 `
 
 export const StyledContent = styled.div`

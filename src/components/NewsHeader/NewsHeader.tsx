@@ -9,7 +9,7 @@ type NewsHeaderProps = {
     date: string
 }
 
-const NewsHeader = ({title, rating, author, date}: NewsHeaderProps) => {
+const NewsHeader = ({ title, rating, author, date }: NewsHeaderProps) => {
 
     return <Styled.StyledNewsHeader>
         <Styled.StyledTitle>{title}</Styled.StyledTitle>

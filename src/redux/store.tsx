@@ -1,9 +1,9 @@
-import {combineReducers, createStore, applyMiddleware, Action} from "redux";
+import { combineReducers, createStore, applyMiddleware, Action } from "redux";
 import GetNewsReducer from './reducers/GetNewsReducer';
 import GetNewsItemReducer from './reducers/GetNewsItemReducer';
 import GetRootCommentsReducer from './reducers/GetRootCommentsReducer';
 import GetSubCommentReducer from "./reducers/GetSubCommnetsReducer";
-import thunk, {ThunkAction} from 'redux-thunk';
+import thunk, { ThunkAction } from 'redux-thunk';
 
 const rootReducer = combineReducers({
     News: GetNewsReducer,
@@ -17,8 +17,8 @@ type RootReducerType = typeof rootReducer;
 
 export type AppStateType = ReturnType<RootReducerType>
 
-export type InferActionsTypes<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never
-export type BaseThunkType<A extends Action = Action, R = Promise<void>> = ThunkAction<R, AppStateType, unknown, A>
+// export type InferActionsTypes<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never
+// export type BaseThunkType<A extends Action = Action, R = Promise<void>> = ThunkAction<R, AppStateType, unknown, A>
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 

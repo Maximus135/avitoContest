@@ -3,10 +3,10 @@ import { Route, Switch } from 'react-router-dom';
 import MainPage from '../MainPage/MainPage';
 import NewsPage from '../NewsPage/NewsPage';
 
-const Router = () =>(
+const Router = () => (
     <Switch>
-        <Route exact path="/" component={MainPage}/>
-        <Route exact path='/news/:newsId' component={NewsPage}/>
+        <Route exact path="/" component={MainPage} />
+        <Route exact path='/news/:newsId' component={NewsPage} />
     </Switch>
 );
 

@@ -1,21 +1,21 @@
-import { GET_NEWS , WAITING_NEWS} from '../actions/GetNewsActions';
-import {NewsType} from '../../types/types';
+import { GET_NEWS, WAITING_NEWS } from '../actions/GetNewsActions';
+import { NewsType } from '../../types/types';
 
 const initialState = {
     news: [] as Array<NewsType>,
     isFetching: false,
 }
 
-const GetNewsReducer = (state = initialState, action: any)=>{
-    switch(action.type){
+const GetNewsReducer = (state = initialState, action: any) => {
+    switch (action.type) {
         case GET_NEWS:
-            return{
+            return {
                 ...state,
                 news: action.news,
                 isFetching: false
             }
         case WAITING_NEWS:
-            return{
+            return {
                 ...state,
                 isFetching: true,
             }

@@ -1,55 +1,53 @@
 import { GetComment } from '../../API/getCommnet';
-import {getRootCommentsAction, waitingRootCommentsAction, setRootCommentEnded} from '../actions/GetRootCommentsAction';
+import { getRootCommentsAction, waitingRootCommentsAction, setRootCommentEndedAction } from '../actions/GetRootCommentsAction';
 import { RootCommentType } from '../../types/types';
 
 
 const rootComments: Array<RootCommentType> = [];
-let latestNewsId: Array<number> = [];
 let savedId = 0;
 
 
-export const getRootCommentsThunk  = (id: Array<number>, fullUpdate: boolean = false ) => (async (dispatch: any) =>{
+export const getRootCommentsThunk = (id: Array<number> = [], fullUpdate: boolean = false) => (async (dispatch: any) => {
+
     dispatch(waitingRootCommentsAction());
 
-    if(fullUpdate){
+    if (fullUpdate) {
         savedId = 0;
-        latestNewsId.length = 0;
         rootComments.length = 0;
-    }
+    } else {
+        let rootComment: RootCommentType = {
+            id: 0,
+            author: '',
+            text: '',
+            kids: [],
+            deleted: false
+        };
 
-    let rootComment: RootCommentType = {
-        id: 0,
-        author: '',
-        text: '',
-        kids: [],
-        deleted: false
-    };
-    
-    console.log(latestNewsId);
-
-    for(let i = savedId; i < savedId+5; i++){
-        rootComment = await GetComment(id[i]).then(responce=>{
-            return {
-                id: responce.id,
-                author: responce.by,
-                text: responce.text,
-                kids: responce.kids ? responce.kids: 0,
-                deleted: responce.deleted ? true : false
+        for (let i = savedId; i < savedId + 5; i++) {
+            console.log(i);
+            rootComment = await GetComment(id[i]).then(responce => {
+                return {
+                    id: responce.id,
+                    author: responce.by,
+                    text: responce.text,
+                    kids: responce.kids ? responce.kids : 0,
+                    deleted: responce.deleted ? true : false
+                }
+            }).catch((error => {
+                dispatch(setRootCommentEndedAction());
+                return {
+                    id: 0,
+                    author: '',
+                    text: '',
+                    kids: [],
+                    deleted: true
+                }
+            }));
+            if (!rootComment.deleted) {
+                rootComments.push(rootComment);
             }
-        }).catch((error=>{
-            dispatch(setRootCommentEnded());
-            return{
-                id: 0,
-                author: '',
-                text: '',
-                kids: [],
-                deleted: true
-            }
-        }));
-        if(!rootComment.deleted){
-            rootComments.push(rootComment);
         }
+        savedId += 5;
+        dispatch(getRootCommentsAction(rootComments));
     }
-    savedId += 5;
-    dispatch(getRootCommentsAction(rootComments));
 })

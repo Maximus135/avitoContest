@@ -17,7 +17,7 @@ export type NewsItemType = {
     subCommentsId: Array<number>
 }
 
-export type RootCommentType ={
+export type RootCommentType = {
     id: number
     author: string
     text: string
@@ -25,7 +25,7 @@ export type RootCommentType ={
     deleted: boolean
 }
 
-export type SubCommentType ={
+export type SubCommentType = {
     level: number
     id: number
     author: string

@@ -17,7 +17,7 @@ export const StyledWrapper = styled.div`
     height: 100px;
     display: flex;
     flex-direction: row;
-    background-color: wheat;
+    background-color:  rgba(105, 118, 126, 0.541);
     border-radius: 5px;
 `
 
@@ -51,6 +51,17 @@ export const StyledMessageWrapper = styled.div`
         overflow-y: scroll;
         overflow-x: scroll;
     }
+    &::-webkit-scrollbar {
+    width: 8px;
+    }
+    &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    }
+    &::-webkit-scrollbar-thumb {
+    border-radius: 12px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+    }
 `
 
 export const StyledMessage = styled.span`
@@ -72,3 +83,4 @@ export const StyledUpArrow = styled(UpArrow)`
     margin-right: auto;
     cursor: pointer;
 `
+
