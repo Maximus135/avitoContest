@@ -5,7 +5,7 @@ import {
 } from '../actions/GetSubCommentsAction';
 
 const initialState = {
-    subComments: new Map as Map<number, Array<SubCommentType>>,
+    subComments: new Map() as Map<number, Array<SubCommentType>>,
     isFetching: false,
 }
 

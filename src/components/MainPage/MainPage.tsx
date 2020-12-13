@@ -27,7 +27,7 @@ const MainPage = () => {
     useEffect(() => {
         const update = setInterval(() => dispatch(getNewsThunk(true)), 60000);
         return () => clearInterval(update);
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         if (!news.length) {
