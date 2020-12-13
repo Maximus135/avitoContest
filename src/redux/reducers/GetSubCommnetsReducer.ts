@@ -1,5 +1,8 @@
 import { SubCommentType } from '../../types/types';
-import { GET_SUB_COMMENTS, WAITING_SUB_COMMENTS, CLEAR_SUB_COMMENTS } from '../actions/GetSubCommentsAction';
+import {
+    GET_SUB_COMMENTS, WAITING_SUB_COMMENTS,
+    CLEAR_SUB_COMMENTS
+} from '../actions/GetSubCommentsAction';
 
 const initialState = {
     subComments: new Map as Map<number, Array<SubCommentType>>,

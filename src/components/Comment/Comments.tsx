@@ -6,7 +6,7 @@ import { getRootCommentsThunk } from '../../redux/thunks/getRootCommentsThunk';
 import CommentItem from '../CommentItem/CommentItem';
 import { RootCommentType } from '../../types/types';
 import SubLoader from '../SubLoader/SubLoader';
-import { clearRootCommentsAction } from '../../redux/actions/GetRootCommentsAction';
+
 
 type CommentsType = {
     commentsId: Array<number>
@@ -17,30 +17,32 @@ type CommentsType = {
 const Comments = ({ commentsId, fullUpdateNews }: CommentsType) => {
 
     const state = useSelector((state: AppStateType) => state.RootComments);
-
     const dispatch = useDispatch();
-    const [commentsArray, setcommentsArray] = useState([]);
 
+    const [commentsArray, setcommentsArray] = useState([]);
+    const comments = state.comments;
+    const showDropDownArrowForMoreCommnets = !state.isFetching && comments.length && !state.isLastComment;
 
     const getMoreComments = () => {
         dispatch(getRootCommentsThunk(commentsId));
     }
 
-    // console.log(commentsId);
 
     useEffect(() => {
-        if (commentsId.length && !state.comments.length) {
+        if (commentsId.length && !comments.length) {
             dispatch(getRootCommentsThunk(commentsId));
         }
-        setcommentsArray(state.comments.map((element: RootCommentType) => <CommentItem id={element.id} author={element.author} text={element.text} kids={element.kids} />));
-    }, [commentsId, state.comments]);
+        setcommentsArray(comments.map((element: RootCommentType) =>
+            <CommentItem id={element.id} author={element.author} text={element.text} kids={element.kids} key={element.id + element.author + Math.random()} />));
+    }, [commentsId, comments, dispatch]);
 
     useEffect(() => {
-        setcommentsArray(state.comments.map((element: RootCommentType) => <CommentItem id={element.id} author={element.author} text={element.text} kids={element.kids} />));
-    }, [commentsId, state]);
+        setcommentsArray(comments.map((element: RootCommentType) =>
+            <CommentItem id={element.id} author={element.author} text={element.text} kids={element.kids} key={element.id + element.author + Math.random()} />));
+    }, [commentsId, state, comments]);
 
 
-    if (state.isFetching && !state.comments.length) {
+    if (state.isFetching && !comments.length) {
         return <SubLoader />
     }
 
@@ -48,8 +50,8 @@ const Comments = ({ commentsId, fullUpdateNews }: CommentsType) => {
         <Styled.StyledComments>
             <Styled.StyledRefresh onClick={fullUpdateNews} />
             {commentsArray.map((element) => element)}
-            {(state.isFetching && state.comments.length) && <SubLoader />}
-            {(!state.isFetching && state.comments.length && !state.isLastComment) && <Styled.StyledDownArrow onClick={getMoreComments} />}
+            {(state.isFetching && comments.length) && <SubLoader />}
+            {(showDropDownArrowForMoreCommnets) && <Styled.StyledDownArrow onClick={getMoreComments} />}
         </Styled.StyledComments>)
 }
 

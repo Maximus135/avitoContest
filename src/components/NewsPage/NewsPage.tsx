@@ -8,17 +8,17 @@ import { getNewsItemThunk } from '../../redux/thunks/getNewsItemThunk';
 import { clearSubCommentsAction } from '../../redux/actions/GetSubCommentsAction';
 import { clearRootCommentsAction } from '../../redux/actions/GetRootCommentsAction';
 import { getRootCommentsThunk } from '../../redux/thunks/getRootCommentsThunk';
+import { getSubCommentsThunk } from '../../redux/thunks/getSubCommentsThunk';
 
 const NewsPage = (props: any) => {
 
     const state = useSelector((state: AppStateType) => state.NewsItem);
-    const check = useSelector((state: AppStateType) => state);
-
     const dispatch = useDispatch();
 
     const [rootCommentsId, setrootCommentsId] = useState([]);
     const [commentsCounter, setCommentsCounter] = useState(0);
     const [date, setDate] = useState('');
+    const newsItem = state.newsItem;
 
     const newsId = props.match.params.newsId;
 
@@ -29,32 +29,30 @@ const NewsPage = (props: any) => {
         dispatch(clearSubCommentsAction());
         dispatch(clearRootCommentsAction());
         dispatch(getRootCommentsThunk([], true));
+        dispatch(getSubCommentsThunk([], 0, true));
     }
 
     const goToNewsSite = (link: string) => {
         window.open(link, 'newLink');
     }
 
-    console.log(check);
-
-    console.log('newsId', newsId);
-    console.log('root', rootCommentsId);
-
     useEffect(() => {
         fullUpdateNews();
+        const update = setInterval(fullUpdateNews, 60000);
+        return () => clearInterval(update);
     }, []);
 
 
     useEffect(() => {
-        if (state.newsItem.subCommentsId) {
-            setrootCommentsId(state.newsItem.subCommentsId);
+        if (newsItem.subCommentsId) {
+            setrootCommentsId(newsItem.subCommentsId);
         }
-        setCommentsCounter(state.newsItem.commentsCounter);
+        setCommentsCounter(newsItem.commentsCounter);
         const normalDate = new Date(0);
-        normalDate.setUTCSeconds(state.newsItem.date);
+        normalDate.setUTCSeconds(newsItem.date);
         const dateToString = normalDate.toLocaleDateString();
         setDate(dateToString);
-    }, [state.newsItem]);
+    }, [newsItem]);
 
 
     if (state.isFetching) {
@@ -65,12 +63,12 @@ const NewsPage = (props: any) => {
         <Styled.StyledNewsPage>
             <Styled.StyledHeader>
                 <Styled.StyledLink to='/'><Styled.StyledBack /></Styled.StyledLink>
-                <Styled.StyledTitle>{state.newsItem.title}</Styled.StyledTitle>
+                <Styled.StyledTitle>{newsItem.title}</Styled.StyledTitle>
             </Styled.StyledHeader>
             <Styled.StyledContent>
                 <Styled.StyledWrapper>
                     <Styled.StyledLinkIcon />
-                    <Styled.StyledTextLink onClick={() => goToNewsSite(state.newsItem.link)}>Click Me</Styled.StyledTextLink>
+                    <Styled.StyledTextLink onClick={() => goToNewsSite(newsItem.link)}>Click Me</Styled.StyledTextLink>
                 </Styled.StyledWrapper>
                 <Styled.StyledWrapper>
                     <Styled.StyledDate />
@@ -78,7 +76,7 @@ const NewsPage = (props: any) => {
                 </Styled.StyledWrapper>
                 <Styled.StyledWrapper>
                     <Styled.StyledUser />
-                    <Styled.StyledText>{state.newsItem.author}</Styled.StyledText>
+                    <Styled.StyledText>{newsItem.author}</Styled.StyledText>
                 </Styled.StyledWrapper>
                 <Styled.StyledWrapper>
                     <Styled.StyledCounter />

@@ -17,25 +17,32 @@ const MainPage = () => {
     const dispatch = useDispatch();
 
     const [newsArray, setNewsArray] = useState([]);
+    const news = state.news;
+    const showDropDownArrow = !state.isFetching && news.length < 100;
 
     const getMoreNews = () => {
         dispatch(getNewsThunk());
     }
 
     useEffect(() => {
-        if (!state.news.length) {
+        const update = setInterval(() => dispatch(getNewsThunk(true)), 60000);
+        return () => clearInterval(update);
+    }, []);
+
+    useEffect(() => {
+        if (!news.length) {
             dispatch(getNewsThunk());
         }
         dispatch(clearNewsItemAction());
-        // setInterval(()=>dispatch(getNewsThunk(true)),60000);
-    }, [state.news]);
+    }, [news, dispatch]);
+
 
     useEffect(() => {
-        setNewsArray(state.news.map((element: NewsType) => {
-            let normalDate = new Date(0);
+        setNewsArray(news.map((element: NewsType) => {
+            const normalDate = new Date(0);
             normalDate.setUTCSeconds(element.date);
             return (
-                <Styled.StyledLink to={{ pathname: `/news/${element.id}` }}>
+                <Styled.StyledLink to={{ pathname: `/news/${element.id}` }} key={element.id + element.author + Math.random()}>
                     <NewsHeader
                         id={element.id}
                         title={element.title}
@@ -45,12 +52,13 @@ const MainPage = () => {
                 </Styled.StyledLink>
             )
         }));
-    }, [state]);
+    }, [state, news]);
 
 
-    if (state.isFetching && !state.news.length) {
+    if (state.isFetching && !news.length) {
         return <Loader />
     }
+
     return (
         <Styled.StyledMainPage>
             <Styled.StyledWrapper>
@@ -59,8 +67,8 @@ const MainPage = () => {
             </Styled.StyledWrapper>
             <Styled.StyledRefresh onClick={() => dispatch(getNewsThunk(true))} />
             {newsArray.map((element) => (element))}
-            {(!state.isFetching && state.news.length && state.news.length < 100) && <Styled.StyledDownArrow onClick={getMoreNews} />}
-            {(state.isFetching && state.news.length) && <SubLoader />}
+            {(showDropDownArrow) && <Styled.StyledDownArrow onClick={getMoreNews} />}
+            {(state.isFetching && news.length) && <SubLoader />}
         </Styled.StyledMainPage>)
 
 }

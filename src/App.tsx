@@ -4,16 +4,21 @@ import store from './redux/store';
 import Router from './components/Router/Router';
 import { BrowserRouter } from 'react-router-dom';
 import * as Styled from './App.styled'
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
+
+
 
 const App = () => {
   return (
-    <Styled.StyledApp>
-      <Provider store={store}>
-        <BrowserRouter>
-          <Router />
-        </BrowserRouter>
-      </Provider>
-    </Styled.StyledApp>
+    <ErrorBoundary>
+      <Styled.StyledApp>
+        <Provider store={store}>
+          <BrowserRouter>
+            <Router />
+          </BrowserRouter>
+        </Provider>
+      </Styled.StyledApp>
+    </ErrorBoundary>
   );
 }
 

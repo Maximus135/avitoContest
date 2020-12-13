@@ -17,16 +17,18 @@ const CommentItem = ({ id, author, text, kids }: CommentItemPropsType) => {
 
     const dispatch = useDispatch();
     const state = useSelector((state: AppStateType) => state.SubCommnets);
+
     const [subComments, setSubCommnets] = useState([]);
     const [subCommentsModal, setSubCommentsModal] = useState(false);
+    const subStateComments = state.subComments;
 
     useEffect(() => {
-        setSubCommnets(state.subComments.get(id));
-    }, [state, id, setSubCommnets, subComments, subCommentsModal, setSubCommentsModal]);
+        setSubCommnets(subStateComments.get(id));
+    }, [state, id, setSubCommnets, subStateComments]);
 
 
     const getSubComments = (kids: Array<number> = []) => {
-        if (!state.subComments.get(id)) {
+        if (!subStateComments.get(id)) {
             dispatch(getSubCommentsThunk(kids, id));
             setSubCommentsModal(true);
         } else {
@@ -57,6 +59,7 @@ const CommentItem = ({ id, author, text, kids }: CommentItemPropsType) => {
                         level={element.level}
                         author={element.author}
                         text={element.text}
+                        key={element.text + element.author + element.level + Math.random()}
                     />)
                 : <div />}
         </Styled.StyledMainWrapper>

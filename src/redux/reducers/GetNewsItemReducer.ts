@@ -1,5 +1,8 @@
 import { NewsItemType } from './../../types/types';
-import { GET_ITEM_NEWS, WAITING_ITEM_NEWS, CLEAR_ITEM_NEWS } from '../actions/GetNewsItemAction';
+import {
+    GET_ITEM_NEWS, WAITING_ITEM_NEWS,
+    CLEAR_ITEM_NEWS
+} from '../actions/GetNewsItemAction';
 
 const initialState = {
     newsItem: {} as NewsItemType,

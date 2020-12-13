@@ -42,7 +42,7 @@ export const StyledUserIcon = styled(User)`
     margin-left: 15px;
 `
 
-export const StyledUser = styled.text`
+export const StyledUser = styled.span`
     font-size: 14px;
     align-self: center;
     margin-right: 15px;
@@ -56,7 +56,7 @@ export const StyledDateIcon = styled(Date)`
     fill: rgb(0, 0, 0);
 `
 
-export const StyledDate = styled.text`
+export const StyledDate = styled.span`
     font-size: 13px;
     align-self: center;
     margin-left: 2px;
@@ -69,7 +69,7 @@ export const StyledRatingIcon = styled(Rating)`
     fill: rgb(0, 0, 0);
 `
 
-export const StyledRating = styled.text`
+export const StyledRating = styled.span`
     font-size: 14px;
     align-self: center;
 `

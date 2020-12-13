@@ -1,5 +1,8 @@
 import { GetComment } from '../../API/getCommnet';
-import { getRootCommentsAction, waitingRootCommentsAction, setRootCommentEndedAction } from '../actions/GetRootCommentsAction';
+import {
+    getRootCommentsAction, waitingRootCommentsAction,
+    setRootCommentEndedAction
+} from '../actions/GetRootCommentsAction';
 import { RootCommentType } from '../../types/types';
 
 
@@ -23,7 +26,6 @@ export const getRootCommentsThunk = (id: Array<number> = [], fullUpdate: boolean
         };
 
         for (let i = savedId; i < savedId + 5; i++) {
-            console.log(i);
             rootComment = await GetComment(id[i]).then(responce => {
                 return {
                     id: responce.id,

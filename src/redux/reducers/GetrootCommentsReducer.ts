@@ -1,5 +1,8 @@
 import { RootCommentType } from '../../types/types';
-import { GET_ROOT_COMMENTS, WAITING_ROOT_COMMENTS, SET_ROOT_COMMENTS_ENDED, CLEAR_ROOT_COMMENTS } from '../actions/GetRootCommentsAction';
+import {
+    GET_ROOT_COMMENTS, WAITING_ROOT_COMMENTS,
+    SET_ROOT_COMMENTS_ENDED, CLEAR_ROOT_COMMENTS
+} from '../actions/GetRootCommentsAction';
 
 const initialState = {
     comments: [] as Array<RootCommentType>,
