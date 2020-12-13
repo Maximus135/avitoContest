@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/avitoContest/static/css/main.b49044a6.chunk.css",
-    "main.js": "/avitoContest/static/js/main.72e629e9.chunk.js",
-    "main.js.map": "/avitoContest/static/js/main.72e629e9.chunk.js.map",
+    "main.js": "/avitoContest/static/js/main.e8a12034.chunk.js",
+    "main.js.map": "/avitoContest/static/js/main.e8a12034.chunk.js.map",
     "runtime-main.js": "/avitoContest/static/js/runtime-main.0ae2fb1d.js",
     "runtime-main.js.map": "/avitoContest/static/js/runtime-main.0ae2fb1d.js.map",
-    "static/js/2.541e9f04.chunk.js": "/avitoContest/static/js/2.541e9f04.chunk.js",
-    "static/js/2.541e9f04.chunk.js.map": "/avitoContest/static/js/2.541e9f04.chunk.js.map",
+    "static/js/2.d04f5fe3.chunk.js": "/avitoContest/static/js/2.d04f5fe3.chunk.js",
+    "static/js/2.d04f5fe3.chunk.js.map": "/avitoContest/static/js/2.d04f5fe3.chunk.js.map",
     "static/js/3.609cf4d0.chunk.js": "/avitoContest/static/js/3.609cf4d0.chunk.js",
     "static/js/3.609cf4d0.chunk.js.map": "/avitoContest/static/js/3.609cf4d0.chunk.js.map",
     "index.html": "/avitoContest/index.html",
     "static/css/main.b49044a6.chunk.css.map": "/avitoContest/static/css/main.b49044a6.chunk.css.map",
-    "static/js/2.541e9f04.chunk.js.LICENSE.txt": "/avitoContest/static/js/2.541e9f04.chunk.js.LICENSE.txt",
+    "static/js/2.d04f5fe3.chunk.js.LICENSE.txt": "/avitoContest/static/js/2.d04f5fe3.chunk.js.LICENSE.txt",
     "static/media/back.341f40b1.svg": "/avitoContest/static/media/back.341f40b1.svg",
     "static/media/counter.4735562e.svg": "/avitoContest/static/media/counter.4735562e.svg",
     "static/media/date.2fd75d1b.svg": "/avitoContest/static/media/date.2fd75d1b.svg",
@@ -25,8 +25,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.0ae2fb1d.js",
-    "static/js/2.541e9f04.chunk.js",
+    "static/js/2.d04f5fe3.chunk.js",
     "static/css/main.b49044a6.chunk.css",
-    "static/js/main.72e629e9.chunk.js"
+    "static/js/main.e8a12034.chunk.js"
   ]
 }
